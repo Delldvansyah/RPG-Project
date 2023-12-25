@@ -4,38 +4,91 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class KeyHandler implements KeyListener{
-    public boolean upPressed, downPressed, leftPressed, rightPressed;
+
+    GamePanel gp;
+    public boolean upPressed, downPressed, leftPressed, rightPressed, enterPressed;
+
+    public KeyHandler(GamePanel gp){
+        this.gp = gp;
+    }
 
     //DEBUG
     boolean checkDrawTime = false;
 
     @Override
-    public void keyTyped(KeyEvent e) {
+    public void keyTyped(KeyEvent e){
         
     }
 
     @Override
-    public void keyPressed(KeyEvent e) {
+    public void keyPressed(KeyEvent e){
+
         int code = e.getKeyCode();
-        if(code == KeyEvent.VK_W){
-            upPressed = true;
-        }
-        if(code == KeyEvent.VK_S){
-            downPressed = true;
-        }
-        if(code == KeyEvent.VK_A){
-            leftPressed = true;
-        }
-        if(code == KeyEvent.VK_D){
-            rightPressed = true;
+
+        // TITLE STATE
+        if(gp.titleState == gp.titleState){
+            if(code == KeyEvent.VK_W || code == KeyEvent.VK_UP){
+                gp.ui.commandNum--;
+                if(gp.ui.commandNum < 0){
+                    gp.ui.commandNum = 2;
+                }
+            }
+            if(code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN){
+                gp.ui.commandNum++;
+                if(gp.ui.commandNum > 2){
+                    gp.ui.commandNum = 0;
+                }
+            }
+            if(code == KeyEvent.VK_ENTER){
+                if(gp.ui.commandNum == 0 ){
+                    gp.gameState = gp.playState;
+                    gp.playMusic(0);
+                }
+                if(gp.ui.commandNum == 1){
+    
+                }
+                if(gp.ui.commandNum == 2){
+                    System.exit(0);
+                }
+            }
         }
 
-        // DEBUG
-        if(code == KeyEvent.VK_T){
-            if(checkDrawTime == false){
-                checkDrawTime = true;
-            } else if(checkDrawTime == true) {
-                checkDrawTime = false;
+        // PLAY STATE
+        if(gp.gameState == gp.playState){
+            if(code == KeyEvent.VK_W || code == KeyEvent.VK_UP){
+                upPressed = true;
+            }
+            if(code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN){
+                downPressed = true;
+            }
+            if(code == KeyEvent.VK_A || code == KeyEvent.VK_LEFT){
+                leftPressed = true;
+            }
+            if(code == KeyEvent.VK_D || code == KeyEvent.VK_RIGHT){
+                rightPressed = true;
+            }
+            if(code == KeyEvent.VK_P){
+                gp.gameState = gp.pauseState;
+            }
+            if(code == KeyEvent.VK_ENTER){
+                enterPressed = true;
+            }
+
+            // DEBUG
+            if(code == KeyEvent.VK_T){
+                if(checkDrawTime == false){
+                    checkDrawTime = true;
+                } else if(checkDrawTime == true) {
+                    checkDrawTime = false;
+                }
+            }
+        } else if(gp.gameState == gp.pauseState){ // PAUSE STATE
+            if(code == KeyEvent.VK_P){
+                gp.gameState = gp.playState;
+            }
+        } else if(gp.gameState == gp.dialogueState){ // DIALOGUE STATE
+            if(code == KeyEvent.VK_ENTER){
+                gp.gameState = gp.playState;
             }
         }
     }
@@ -43,16 +96,16 @@ public class KeyHandler implements KeyListener{
     @Override
     public void keyReleased(KeyEvent e) {
         int code = e.getKeyCode();
-        if(code == KeyEvent.VK_W){
+        if(code == KeyEvent.VK_W || code == KeyEvent.VK_UP){
             upPressed = false;
         }
-        if(code == KeyEvent.VK_S){
+        if(code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN){
             downPressed = false;
         }
-        if(code == KeyEvent.VK_A){
+        if(code == KeyEvent.VK_A || code == KeyEvent.VK_LEFT){
             leftPressed = false;
         }
-        if(code == KeyEvent.VK_D){
+        if(code == KeyEvent.VK_D || code == KeyEvent.VK_RIGHT){
             rightPressed = false;
         }
     }
