@@ -72,93 +72,97 @@ public class CollisionChecker {
     public int checkObject(Entity entity, boolean player) {
         int index = 999;
 
-        for (int i = 0; i < gp.obj[1].length; i++) {
-            if (gp.obj[gp.currentMap][i] != null) {
+        if (gp.obj != null && gp.obj.length > gp.currentMap && gp.obj[gp.currentMap] != null) {
+            for (int i = 0; i < gp.obj[gp.currentMap].length; i++) {
+                if (gp.obj[gp.currentMap][i] != null) {
 
-                // Get entity's solid area position
-                entity.solidArea.x = entity.worldX + entity.solidArea.x;
-                entity.solidArea.y = entity.worldY + entity.solidArea.y;
+                    // Get entity's solid area position
+                    entity.solidArea.x = entity.worldX + entity.solidArea.x;
+                    entity.solidArea.y = entity.worldY + entity.solidArea.y;
 
-                // Get object's solid area position
-                gp.obj[gp.currentMap][i].solidArea.x = gp.obj[gp.currentMap][i].worldX
-                        + gp.obj[gp.currentMap][i].solidArea.x;
-                gp.obj[gp.currentMap][i].solidArea.y = gp.obj[gp.currentMap][i].worldY
-                        + gp.obj[gp.currentMap][i].solidArea.y;
+                    // Get object's solid area position
+                    gp.obj[gp.currentMap][i].solidArea.x = gp.obj[gp.currentMap][i].worldX
+                            + gp.obj[gp.currentMap][i].solidArea.x;
+                    gp.obj[gp.currentMap][i].solidArea.y = gp.obj[gp.currentMap][i].worldY
+                            + gp.obj[gp.currentMap][i].solidArea.y;
 
-                switch (entity.direction) {
-                    case "up":
-                        entity.solidArea.y -= entity.speed;
-                        break;
-                    case "down":
-                        entity.solidArea.y += entity.speed;
-                        break;
-                    case "left":
-                        entity.solidArea.x -= entity.speed;
-                        break;
-                    case "right":
-                        entity.solidArea.x += entity.speed;
-                        break;
-                }
-                if (entity.solidArea.intersects(gp.obj[gp.currentMap][i].solidArea)) {
-                    if (gp.obj[gp.currentMap][i].collision == true) {
-                        entity.collisionOn = true;
+                    switch (entity.direction) {
+                        case "up":
+                            entity.solidArea.y -= entity.speed;
+                            break;
+                        case "down":
+                            entity.solidArea.y += entity.speed;
+                            break;
+                        case "left":
+                            entity.solidArea.x -= entity.speed;
+                            break;
+                        case "right":
+                            entity.solidArea.x += entity.speed;
+                            break;
                     }
-                    if (player == true) {
-                        index = i;
+                    if (entity.solidArea.intersects(gp.obj[gp.currentMap][i].solidArea)) {
+                        if (gp.obj[gp.currentMap][i].collision == true) {
+                            entity.collisionOn = true;
+                        }
+                        if (player == true) {
+                            index = i;
+                        }
                     }
-                }
-                entity.solidArea.x = entity.solidAreaDefaultX;
-                entity.solidArea.y = entity.solidAreaDefaultY;
+                    entity.solidArea.x = entity.solidAreaDefaultX;
+                    entity.solidArea.y = entity.solidAreaDefaultY;
 
-                gp.obj[gp.currentMap][i].solidArea.x = gp.obj[gp.currentMap][i].solidAreaDefaultX;
-                gp.obj[gp.currentMap][i].solidArea.y = gp.obj[gp.currentMap][i].solidAreaDefaultY;
+                    gp.obj[gp.currentMap][i].solidArea.x = gp.obj[gp.currentMap][i].solidAreaDefaultX;
+                    gp.obj[gp.currentMap][i].solidArea.y = gp.obj[gp.currentMap][i].solidAreaDefaultY;
+                }
             }
         }
-        return index;
+         return index;
     }
 
     // NPC OR MONSTER
     public int checkEntity(Entity entity, Entity[][] target) {
         int index = 999;
 
-        for (int i = 0; i < target[1].length; i++) {
-            if (target[gp.currentMap][i] != null) {
+        if (target != null && target.length > gp.currentMap && target[gp.currentMap] != null) {
+            for (int i = 0; i < target[gp.currentMap].length; i++) {
+                if (target[gp.currentMap][i] != null) {
 
-                // Get entity's solid area position
-                entity.solidArea.x = entity.worldX + entity.solidArea.x;
-                entity.solidArea.y = entity.worldY + entity.solidArea.y;
+                    // Get entity's solid area position
+                    entity.solidArea.x = entity.worldX + entity.solidArea.x;
+                    entity.solidArea.y = entity.worldY + entity.solidArea.y;
 
-                // Get object's solid area position
-                target[gp.currentMap][i].solidArea.x = target[gp.currentMap][i].worldX
-                        + target[gp.currentMap][i].solidArea.x;
-                target[gp.currentMap][i].solidArea.y = target[gp.currentMap][i].worldY
-                        + target[gp.currentMap][i].solidArea.y;
+                    // Get object's solid area position
+                    target[gp.currentMap][i].solidArea.x = target[gp.currentMap][i].worldX
+                            + target[gp.currentMap][i].solidArea.x;
+                    target[gp.currentMap][i].solidArea.y = target[gp.currentMap][i].worldY
+                            + target[gp.currentMap][i].solidArea.y;
 
-                switch (entity.direction) {
-                    case "up":
-                        entity.solidArea.y -= entity.speed;
-                        break;
-                    case "down":
-                        entity.solidArea.y += entity.speed;
-                        break;
-                    case "left":
-                        entity.solidArea.x -= entity.speed;
-                        break;
-                    case "right":
-                        entity.solidArea.x += entity.speed;
-                        break;
-                }
-                if (entity.solidArea.intersects(target[gp.currentMap][i].solidArea)) {
-                    if (target[gp.currentMap][i] != entity) {
-                        entity.collisionOn = true;
-                        index = i;
+                    switch (entity.direction) {
+                        case "up":
+                            entity.solidArea.y -= entity.speed;
+                            break;
+                        case "down":
+                            entity.solidArea.y += entity.speed;
+                            break;
+                        case "left":
+                            entity.solidArea.x -= entity.speed;
+                            break;
+                        case "right":
+                            entity.solidArea.x += entity.speed;
+                            break;
                     }
-                }
-                entity.solidArea.x = entity.solidAreaDefaultX;
-                entity.solidArea.y = entity.solidAreaDefaultY;
+                    if (entity.solidArea.intersects(target[gp.currentMap][i].solidArea)) {
+                        if (target[gp.currentMap][i] != entity) {
+                            entity.collisionOn = true;
+                            index = i;
+                        }
+                    }
+                    entity.solidArea.x = entity.solidAreaDefaultX;
+                    entity.solidArea.y = entity.solidAreaDefaultY;
 
-                target[gp.currentMap][i].solidArea.x = target[gp.currentMap][i].solidAreaDefaultX;
-                target[gp.currentMap][i].solidArea.y = target[gp.currentMap][i].solidAreaDefaultY;
+                    target[gp.currentMap][i].solidArea.x = target[gp.currentMap][i].solidAreaDefaultX;
+                    target[gp.currentMap][i].solidArea.y = target[gp.currentMap][i].solidAreaDefaultY;
+                }
             }
         }
         return index;

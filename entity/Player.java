@@ -314,26 +314,52 @@ public class Player extends Entity {
         }
     }
 
+    // public void pickUpObject(int i) {
+    //     if (i != 999) {
+
+    //         // PICKUP ONLY ITEMS
+    //         if (gp.obj[gp.currentMap][i].type == type_pickupOnly) {
+    //             gp.obj[gp.currentMap][i].use(this);
+    //             gp.obj[i] = null;
+    //         } else {
+    //             // INVENTORY ITEMS
+    //             String text;
+
+    //             if (inventory.size() != maxInventorySize) {
+    //                 inventory.add(gp.obj[gp.currentMap][i]);
+    //                 gp.playSE(1);
+    //                 text = "You got a " + gp.obj[gp.currentMap][i].name + "!";
+    //             } else {
+    //                 text = "You cannot carry any more";
+    //             }
+    //             gp.ui.addMessage(text);
+    //             gp.obj[gp.currentMap][i] = null;
+    //         }
+    //     }
+    // }
+
     public void pickUpObject(int i) {
         if (i != 999) {
-
-            // PICKUP ONLY ITEMS
-            if (gp.obj[gp.currentMap][i].type == type_pickupOnly) {
-                gp.obj[gp.currentMap][i].use(this);
-                gp.obj[i] = null;
-            } else {
-                // INVENTORY ITEMS
-                String text;
-
-                if (inventory.size() != maxInventorySize) {
-                    inventory.add(gp.obj[gp.currentMap][i]);
-                    gp.playSE(1);
-                    text = "You got a " + gp.obj[gp.currentMap][i].name + "!";
+            if (gp.obj[gp.currentMap][i] != null) {
+                // PICKUP ONLY ITEMS
+                if (gp.obj[gp.currentMap][i].type == type_pickupOnly) {
+                    gp.obj[gp.currentMap][i].use(this);
+                    gp.obj[gp.currentMap][i] = null; // Hapus dari struktur data
+                    // Hapus dari tampilan (misalnya, jika ada representasi grafis)
+                    // Misalnya, jika ada representasi grafis seperti sprite, maka harus dihapus dari tampilan
                 } else {
-                    text = "You cannot carry any more";
+                    // INVENTORY ITEMS
+                    String text;
+                    if (inventory.size() != maxInventorySize) {
+                        inventory.add(gp.obj[gp.currentMap][i]);
+                        gp.playSE(1);
+                        text = "You got a " + gp.obj[gp.currentMap][i].name + "!";
+                    } else {
+                        text = "You cannot carry any more";
+                    }
+                    gp.ui.addMessage(text);
+                    gp.obj[gp.currentMap][i] = null; // Hapus dari struktur data
                 }
-                gp.ui.addMessage(text);
-                gp.obj[gp.currentMap][i] = null;
             }
         }
     }
