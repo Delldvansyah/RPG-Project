@@ -5,7 +5,7 @@ import java.awt.Graphics2D;
 
 import main.GamePanel;
 
-public class Particle extends Entity {
+public class Particle extends Entity { // metode khusus untuk kelas partikel
     
     Entity generator;
     Color color;
@@ -14,7 +14,7 @@ public class Particle extends Entity {
     int yd;
 
     public Particle(GamePanel gp, Entity generator, Color color, int size, int speed, int maxLife, int xd, int yd) {
-        super(gp);
+        super(gp); // inisialisasi objek partikel
 
         this.generator = generator;
         this.color = color;
@@ -30,10 +30,10 @@ public class Particle extends Entity {
         worldY = generator.worldY + offset;
     }
 
-    public void update() {
+    public void update() {  // memperbarui posisi berdasarkan kecepatan dan arah
         life--;
 
-        if (life < maxLife / 3) {
+        if (life < maxLife / 3) { // mengurangi masa hidup
             yd++;
         }
 
@@ -45,7 +45,7 @@ public class Particle extends Entity {
         }
     }
 
-    public void draw(Graphics2D g2) {
+    public void draw(Graphics2D g2) { // menggambar objek menggunakan suatu objek Graphics2D. 
         int screenX = worldX - gp.player.worldX + gp.player.screenX;
         int screenY = worldY - gp.player.worldY + gp.player.screenY;
 

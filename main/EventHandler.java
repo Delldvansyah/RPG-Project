@@ -2,7 +2,7 @@ package main;
 
 import entity.Entity;
 
-public class EventHandler {
+public class EventHandler { // untuk menangani suatu kejadian tertentu
     GamePanel gp;
     EventRect eventRect[][][];
 
@@ -10,10 +10,10 @@ public class EventHandler {
     boolean canTouchEvent = true;
     int tempMap, tempCol, tempRow;
 
-    public EventHandler(GamePanel gp) {
+    public EventHandler(GamePanel gp) { //inisialisasi objek EventHandler
         this.gp = gp;
 
-        eventRect = new EventRect[gp.maxMap][gp.maxWorldCol][gp.maxWorldRow];
+        eventRect = new EventRect[gp.maxMap][gp.maxWorldCol][gp.maxWorldRow];  // inisialisasi array tiga dimensi
 
         int map = 0;
         int col = 0;
@@ -27,7 +27,7 @@ public class EventHandler {
             eventRect[map][col][row].height = 2;
             eventRect[map][col][row].eventRectDefaultX = eventRect[map][col][row].x;
             eventRect[map][col][row].eventRectDefaultY = eventRect[map][col][row].y;
-
+            // increment variabel untuk beralih ke elemen berikutnya
             col++;
             if (col == gp.maxWorldCol) {
                 col = 0;
@@ -79,7 +79,7 @@ public class EventHandler {
         }
     }
 
-    public boolean hit(int map, int col, int row, String reqDirection) {
+    public boolean hit(int map, int col, int row, String reqDirection) { // implementasi logika untuk memeriksa "hit" pada posisi tertentu
         boolean hit = false;
 
         if (map == gp.currentMap) {
@@ -107,7 +107,7 @@ public class EventHandler {
         return hit;
     }
 
-    public void damagePit(int gameState) {
+    public void damagePit(int gameState) { // implementasi logika untuk memberikan kerusakan pada pit
         gp.gameState = gameState;
         gp.playSE(6);
         gp.ui.currentDialogue = "You fall into a pit!";
@@ -115,7 +115,7 @@ public class EventHandler {
         canTouchEvent = false;
     }
 
-    public void healingPool(int gameState) {
+    public void healingPool(int gameState) { // metode untuk memberikan efek penyembuhan pada pool berdasarkan gameState
         if (gp.keyH.enterPressed == true) {
             gp.gameState = gameState;
             gp.player.attackCanceled = true;
@@ -127,7 +127,7 @@ public class EventHandler {
         }
     }
 
-    public void teleport(int map, int col, int row) {
+    public void teleport(int map, int col, int row) { // implementasi untuk melakukan teleportasi
         gp.gameState = gp.transitionState;
         tempMap = map;
         tempCol = col;
@@ -136,7 +136,7 @@ public class EventHandler {
         gp.playSE(13);
     }
 
-    public void speak(Entity entity) {
+    public void speak(Entity entity) { // memeriksa apakah entitas tidak null dan memiliki teks bicara
         if (gp.keyH.enterPressed == true) {
             gp.gameState = gp.dialogueState;
             gp.player.attackCanceled = true;

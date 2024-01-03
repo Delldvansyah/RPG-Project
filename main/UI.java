@@ -19,14 +19,14 @@ public class UI {
     GamePanel gp;
     Graphics2D g2;
     Font maruMonica;
-    BufferedImage heart_full, heart_half, heart_blank, crystal_full, crystal_blank, coin;
-    public boolean messageOn = false;
+    BufferedImage heart_full, heart_half, heart_blank, crystal_full, crystal_blank, coin; // mendeklarasi untuk menyimpan gambar atau ikon yg akan digunakan
+    public boolean messageOn = false; // menentukan kondisi dalam program yang pada awalnya 'messageOn' diatur ke 'false'
     ArrayList<String> message = new ArrayList<>();
     ArrayList<Integer> messageCounter = new ArrayList<>();
-    public boolean gameFinished = false;
-    public String currentDialogue = "";
-    public int commandNum = 0;
-    public int titleScreenState = 0;
+    public boolean gameFinished = false; // menandakan bahwa permainan belum selesai
+    public String currentDialogue = ""; // menyimpan dialog permainan
+    public int commandNum = 0; // menyimpan angka yang dapat diubah selama eksekusi game
+    public int titleScreenState = 0; // kode yang menangani tampilan dari permainan
     public int playerSlotCol = 0;
     public int playerSlotRow = 0;
     public int npcSlotCol = 0;
@@ -64,11 +64,12 @@ public class UI {
     }
 
     public void addMessage(String text) {
+        // untuk menambahkan pesan ke suatu objek atau melakukan tugas lainnya
         message.add(text);
         messageCounter.add(0);
     }
 
-    public void draw(Graphics2D g2) {
+    public void draw(Graphics2D g2) { // menggambar sesuatu menggunakan objek Graphics2D
         this.g2 = g2;
 
         g2.setFont(maruMonica);
@@ -123,7 +124,7 @@ public class UI {
         }
     }
 
-    public void drawPlayerLife() {
+    public void drawPlayerLife() { // menggambar elemen grafis yang menunjukkan nyawa pemain
         int x = gp.tileSize / 2;
         int y = gp.tileSize / 2;
         int i = 0;
@@ -174,11 +175,11 @@ public class UI {
         }
     }
 
-    public void drawMessage() {
-        int messageX = gp.tileSize;
-        int messageY = gp.tileSize * 4;
+    public void drawMessage() { // menggambar atau menampilkan pesan pada suatu tampilan grafis.
+        int messageX = gp.tileSize; // posisi x
+        int messageY = gp.tileSize * 4; // posisi y yg nilai awalnya 4
 
-        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 32f));
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 32f)); // mengatur atau mengganti properti font pada objek Graphics2D (g2).
 
         for (int i = 0; i < message.size(); i++) {
             if (message.get(i) != null) {
@@ -201,7 +202,7 @@ public class UI {
         }
     }
 
-    public void drawTitleScreen() {
+    public void drawTitleScreen() { // Pengaturan properti grafis 
         if (titleScreenState == 0) {
 
             g2.setColor(new Color(0, 0, 0));
@@ -237,19 +238,19 @@ public class UI {
                 g2.drawString(">", x - gp.tileSize, y);
             }
 
-            text = "LOAD GAME";
-            x = getXforCenteredText(text);
-            y += gp.tileSize;
-            g2.drawString(text, x, y);
-            if (commandNum == 1) {
-                g2.drawString(">", x - gp.tileSize, y);
-            }
+            // text = "LOAD GAME";
+            // x = getXforCenteredText(text);
+            // y += gp.tileSize;
+            // g2.drawString(text, x, y);
+            // if (commandNum == 1) {
+            //     g2.drawString(">", x - gp.tileSize, y);
+            // }
 
             text = "QUIT";
             x = getXforCenteredText(text);
             y += gp.tileSize;
             g2.drawString(text, x, y);
-            if (commandNum == 2) {
+            if (commandNum == 1) {
                 g2.drawString(">", x - gp.tileSize, y);
             }
         }
@@ -298,7 +299,7 @@ public class UI {
         }
     }
 
-    public void drawPauseScreen() {
+    public void drawPauseScreen() { // mengatur font, warna, dan posisi teks, lalu menggunakan objek Graphics2D (g2) untuk menggambar pesan "Game Paused".
         g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 80F));
         String text = "PAUSED";
 
@@ -309,7 +310,7 @@ public class UI {
         g2.drawString(text, x, y);
     }
 
-    public void drawDialogueScreen() {
+    public void drawDialogueScreen() { // menggambarkan nama karakter dan teks dialog
         // WINDOW
         int x = gp.tileSize * 3;
         int y = gp.tileSize / 2;
@@ -328,14 +329,14 @@ public class UI {
         }
     }
 
-    public void drawCharacterScreen() {
+    public void drawCharacterScreen() { // menggambar nama karakter dan menampilkan gambar karakter pada suatu posisi tertentu di layar karakter.
         // FRAME
         final int frameX = gp.tileSize * 2;
         final int frameY = gp.tileSize;
         final int frameWidth = gp.tileSize * 5;
         final int frameHeight = gp.tileSize * 10;
 
-        drawSubWindow(frameX, frameY, frameWidth, frameHeight);
+        drawSubWindow(frameX, frameY, frameWidth, frameHeight); //  mengatur dan menggambar suatu sub-window pada posisi dan ukuran yang spesifik pada suatu tampilan grafis
 
         // TEXT
         g2.setColor(Color.white);
@@ -1023,13 +1024,13 @@ public class UI {
         }
     }
 
-    public int getItemIndexOnSlot(int slotCol, int slotRow) {
+    public int getItemIndexOnSlot(int slotCol, int slotRow) { // implementasi untuk mendapatkan indeks item pada suatu slot berdasarkan kolom dan baris.
         int itemIndex = slotCol + (slotRow * 5);
 
         return itemIndex;
     }
 
-    public void drawSubWindow(int x, int y, int width, int height) {
+    public void drawSubWindow(int x, int y, int width, int height) { // implementasi untuk menggambar subwindow pada posisi (x, y) dengan lebar dan tinggi tertentu.
         Color c = new Color(0, 0, 0, 210);
         g2.setColor(c);
         g2.fillRoundRect(x, y, width, height, 35, 35);
@@ -1040,14 +1041,14 @@ public class UI {
         g2.drawRoundRect(x + 5, y + 5, width - 10, height - 10, 25, 25);
     }
 
-    public int getXforCenteredText(String text) {
+    public int getXforCenteredText(String text) { // implementasi untuk menghitung nilai X agar teks berada di tengah.
         int length = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
         int x = gp.screenWidth / 2 - length / 2;
 
         return x;
     }
 
-    public int getXforAlignToRightText(String text, int tailX) {
+    public int getXforAlignToRightText(String text, int tailX) { // implementasi untuk menghitung nilai x agar teks sejajar ke kanan
         int length = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
         int x = tailX - length;
 

@@ -8,11 +8,11 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
 
 public class Sound {
-    Clip clip;
-    URL soundUrl[] = new URL[30];
-    FloatControl fc;
-    int volumeScale = 3;
-    float volume;
+    Clip clip; // memainkan suara dalam java sound
+    URL soundUrl[] = new URL[30]; // menyimpan url dengan ukuran maksimum 30 
+    FloatControl fc; // mengendalikan parameter suara
+    int volumeScale = 3; // deklarasi variabel 'volumeScale' dengan nilai awal 3
+    float volume; // menyimpan nilai volume suara
 
     public Sound() {
         soundUrl[0] = getClass().getResource("../asset/sound/BlueBoyAdventure.wav");
@@ -31,18 +31,18 @@ public class Sound {
         soundUrl[13] = getClass().getResource("../asset/sound/stairs.wav");
     }
 
-    public void setFile(int i) {
+    public void setFile(int i) { // menetapkan (set) file suara yang akan digunakan oleh objek
         try {
             AudioInputStream ais = AudioSystem.getAudioInputStream(soundUrl[i]);
             clip = AudioSystem.getClip();
             clip.open(ais);
             fc = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-            checkVolume();
+            checkVolume(); // penyesuaian terhadap volume suara
         } catch (Exception e) {
         }
     }
 
-    public void play() {
+    public void play() { // metode untuk memulai pemutaran suara yang telat diatur
         clip.start();
     }
 
@@ -54,7 +54,7 @@ public class Sound {
         clip.stop();
     }
 
-    public void checkVolume() {
+    public void checkVolume() { // mengatur volume suara berdasarkan skala tertentu
         switch (volumeScale) {
             case 0:
                 volume = -80f;

@@ -12,7 +12,7 @@ import javax.imageio.ImageIO;
 import main.GamePanel;
 import main.UtilityTool;
 
-public class TileManager {
+public class TileManager { // menyimpan informasi pengelolaan tile dalam suatu permainan
     GamePanel gp;
     public Tile[] tile;
     public int mapTileNum[][][];
@@ -21,14 +21,14 @@ public class TileManager {
     public TileManager(GamePanel gp) {
         this.gp = gp;
         tile = new Tile[50];
-        mapTileNum = new int[gp.maxMap][gp.maxWorldCol][gp.maxWorldRow];
+        mapTileNum = new int[gp.maxMap][gp.maxWorldCol][gp.maxWorldRow]; 
 
         getTileImage();
         loadMap("../asset/maps/worldV3.txt", 0);
         loadMap("../asset/maps/interior01.txt", 1);
     }
 
-    public void getTileImage() {
+    public void getTileImage() { // mendapatkan atau mengambil gambar tile
 
         // PLACEHOLDER
         setup(0, "grass00", false);
@@ -81,8 +81,8 @@ public class TileManager {
 
     }
 
-    public void setup(int index, String imageName, boolean collision) {
-        UtilityTool uTool = new UtilityTool();
+    public void setup(int index, String imageName, boolean collision) { // menginisialisasi variabel, mengatur konfigurasi awal, atau menyiapkan sumber daya lain yang diperlukan sebelum program berjalan.
+        UtilityTool uTool = new UtilityTool(); // meyediakan utilitas tambahan dalam program
 
         try {
 
@@ -96,7 +96,7 @@ public class TileManager {
         }
     }
 
-    public void loadMap(String filePath, int map) {
+    public void loadMap(String filePath, int map) { // mengambil data peta dari suatu file yang terletak di filePath
 
         try {
 
@@ -128,7 +128,7 @@ public class TileManager {
         }
     }
 
-    public void draw(Graphics2D g2) {
+    public void draw(Graphics2D g2) { // menggambar objek dalam grafis
         int worldCol = 0;
         int worldRow = 0;
 

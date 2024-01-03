@@ -7,18 +7,19 @@ public class KeyHandler implements KeyListener {
     GamePanel gp;
 
     public boolean upPressed, downPressed, leftPressed, rightPressed, enterPressed, shotKeyPressed;
-
+    // deklarasi untuk melacak status 
     public KeyHandler(GamePanel gp) {
         this.gp = gp;
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {
+    public void keyTyped(KeyEvent e) { // mendapatkan karakter yang diketik
         // TODO Auto-generated method stub
     }
 
     @Override
-    public void keyPressed(KeyEvent e) {
+    public void keyPressed(KeyEvent e) { 
+        // mendapatkan kode dari tombol yang ditekan
         int code = e.getKeyCode();
 
         // TITLE STATE
@@ -61,20 +62,20 @@ public class KeyHandler implements KeyListener {
             tradeState(code);
         }
     }
-
-    public void titleState(int code) {
+ 
+    public void titleState(int code) { // implementasi logika sesuai dengan kebutuhan state dengan kode tertentu
         if (code == KeyEvent.VK_W) {
             // W button
             gp.ui.commandNum--;
             if (gp.ui.commandNum < 0) {
-                gp.ui.commandNum = 2;
+                gp.ui.commandNum = 1;
             }
         }
 
         if (code == KeyEvent.VK_S) {
             // S button
             gp.ui.commandNum++;
-            if (gp.ui.commandNum > 2) {
+            if (gp.ui.commandNum > 1) {
                 gp.ui.commandNum = 0;
             }
         }
@@ -85,10 +86,10 @@ public class KeyHandler implements KeyListener {
                 gp.gameState = gp.playState;
                 gp.playMusic(0);
             }
+            // if (gp.ui.commandNum == 1) {
+            //     // LOAD GAME
+            // }
             if (gp.ui.commandNum == 1) {
-                // LOAD GAME
-            }
-            if (gp.ui.commandNum == 2) {
                 System.exit(0);
             }
         }
@@ -132,7 +133,7 @@ public class KeyHandler implements KeyListener {
         }
     }
 
-    public void playState(int code) {
+    public void playState(int code) {  // implementasi logika sesuai dengan kebutuhan state bermain dengan kode tertentu
         if (code == KeyEvent.VK_W) {
             // W button
             upPressed = true;
@@ -185,21 +186,21 @@ public class KeyHandler implements KeyListener {
         }
     }
 
-    public void pauseState(int code) {
+    public void pauseState(int code) { // metode yang mencerminkan kondisi oermainan yang dihentikan sementara
         if (code == KeyEvent.VK_P) {
             // P button
             gp.gameState = gp.playState;
         }
     }
 
-    public void dialogueState(int code) {
+    public void dialogueState(int code) { // metode ketika karakter berkomunikasi melalui dialog
         if (code == KeyEvent.VK_ENTER) {
             // ENTER button
             gp.gameState = gp.playState;
         }
     }
 
-    public void characterState(int code) {
+    public void characterState(int code) { // metode ketika karakter mengalami perubahan
         if (code == KeyEvent.VK_C) {
             // C button
             gp.gameState = gp.playState;
@@ -213,6 +214,7 @@ public class KeyHandler implements KeyListener {
     }
 
     public void optionState(int code) {
+       // memeriksa apakah nilai code sama dengan nilai konstan KeyEvent.VK_ESCAPE.
         if (code == KeyEvent.VK_ESCAPE) {
             gp.gameState = gp.playState;
         }
@@ -282,6 +284,7 @@ public class KeyHandler implements KeyListener {
     }
 
     public void gameOverState(int code) {
+        //  memeriksa apakah nilai code sama dengan nilai konstan KeyEvent.VK_W.
         if (code == KeyEvent.VK_W) {
             gp.ui.commandNum--;
 
@@ -314,7 +317,7 @@ public class KeyHandler implements KeyListener {
         }
     }
 
-    public void tradeState(int code) {
+    public void tradeState(int code) { // implementasi logika state perdagangan
         if (code == KeyEvent.VK_ENTER) {
             enterPressed = true;
         }
@@ -358,7 +361,7 @@ public class KeyHandler implements KeyListener {
         }
     }
 
-    public void playerInventory(int code) {
+    public void playerInventory(int code) { // implementasi logika inventaris pemain
         if (code == KeyEvent.VK_W) {
             if (gp.ui.playerSlotRow != 0) {
                 gp.ui.playerSlotRow--;
@@ -388,7 +391,7 @@ public class KeyHandler implements KeyListener {
         }
     }
 
-    public void npcInventory(int code) {
+    public void npcInventory(int code) { // implementasi logika inventaris karakter non-pemain (NPC)
         if (code == KeyEvent.VK_W) {
             if (gp.ui.npcSlotRow != 0) {
                 gp.ui.npcSlotRow--;
@@ -420,6 +423,7 @@ public class KeyHandler implements KeyListener {
 
     @Override
     public void keyReleased(KeyEvent e) {
+        // mendapatkan kode dari tombol yang dilepaskan
         // TODO Auto-generated method stub
         int code = e.getKeyCode();
 

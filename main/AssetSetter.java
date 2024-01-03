@@ -13,7 +13,7 @@ import object.OBJ_Potion_Red;
 import object.OBJ_Shield_Blue;
 import tile_interactive.IT_DryTree;
 
-public class AssetSetter {
+public class AssetSetter { // pengaturan aset 
 
     GamePanel gp;
 
@@ -21,7 +21,7 @@ public class AssetSetter {
         this.gp = gp;
     }
 
-    public void setObject() {
+    public void setObject() { // inisialisasi
         int mapNum = 0;
         int i = 0;
 
@@ -60,7 +60,7 @@ public class AssetSetter {
 
     }
 
-    public void setMonster() {
+    public void setMonster() { // untuk menetapkan monster
         int mapNum = 0;
 
         int i = 0;
@@ -90,7 +90,7 @@ public class AssetSetter {
         i++;
     }
 
-    public void setInteractiveTile() {
+    public void setInteractiveTile() { // untuk menetapkan tile interaktif
         int mapNum = 0;
 
         int i = 0;

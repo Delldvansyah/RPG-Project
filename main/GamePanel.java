@@ -98,8 +98,8 @@ public class GamePanel extends JPanel implements Runnable {
         // Make GamePanel focused to receive input
         this.setFocusable(true);
     }
-
-    public void setupGame() {
+ 
+    public void setupGame() { // inisialisasi atau persiapan awal sebelum permainan dimulai.
         aSetter.setObject();
         aSetter.setNPC();
         aSetter.setMonster();
@@ -114,14 +114,14 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
-    public void retry() {
+    public void retry() { // memberikan pengguna atau pemain kesempatan untuk mencoba kembali suatu tindakan atau level setelah kegagalan 
         player.setDefaultPositions();
         player.restoreLifeAndMana();
         aSetter.setNPC();
         aSetter.setMonster();
     }
 
-    public void restart() {
+    public void restart() { // memulai ulang
         player.setDefaultValues();
         player.setDefaultPositions();
         player.restoreLifeAndMana();
@@ -129,10 +129,10 @@ public class GamePanel extends JPanel implements Runnable {
         aSetter.setObject();
         aSetter.setNPC();
         aSetter.setMonster();
-        aSetter.setInteractiveTile();
+        aSetter.setInteractiveTile(); // 
     }
 
-    public void setFullScreen() {
+    public void setFullScreen() {  // mengaktifkan tampilan layar penuh pada permainan
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         GraphicsDevice gd = ge.getDefaultScreenDevice();
         gd.setFullScreenWindow(Main.window);
@@ -141,7 +141,7 @@ public class GamePanel extends JPanel implements Runnable {
         screenHeight2 = Main.window.getHeight();
     }
 
-    public void startGameThread() {
+    public void startGameThread() { // menginisialisasi suatu thread yg kan menangani logil
         gameThread = new Thread(this);
         gameThread.start();
     }
@@ -156,8 +156,8 @@ public class GamePanel extends JPanel implements Runnable {
         long timer = 0;
         int drawCount = 0;
 
-        while (gameThread != null) { 
-
+        while (gameThread != null) {
+ 
             currentTime = System.nanoTime();
             delta += (currentTime - lastTime) / drawInterval;
             timer += (currentTime - lastTime);
@@ -313,24 +313,25 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
-    public void drawToScreen() {
+    public void drawToScreen() { 
         Graphics g = getGraphics();
+        // menggambar karakter
         g.drawImage(tempScreen, 0, 0, screenWidth2, screenHeight2, null);
         g.dispose();
     }
 
     public void playMusic(int i) {
-        music.setFile(i);
-        music.play();
-        music.loop();
+        music.setFile(i); // menetapkan file musik yg akan diputar berdasarkan nilai i
+        music.play(); // musik yang telah diatur dgn menggunakan setFile(i) akan diputar
+        music.loop(); // metode ini untuk mengatur agar musik diputar secara berulang
     }
-
-    public void stopMusic() {
+ 
+    public void stopMusic() { // untuk menghentikan pemutaran musik
         music.stop();
     }
 
     public void playSE(int i) {
-        se.setFile(i);
-        se.play();
+        se.setFile(i); // metode untuk menetapkan file suara
+        se.play(); // memulai pemutaran efek suara
     }
 }

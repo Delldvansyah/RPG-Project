@@ -20,7 +20,7 @@ public class Player extends Entity {
     public final int screenY;
     public boolean attackCanceled = false;
 
-    public Player(GamePanel gp, KeyHandler keyH) {
+    public Player(GamePanel gp, KeyHandler keyH) { // menginisialisasi atau mengatur properti-properti objek Player sesuai kebutuhan
         super(gp);
         this.keyH = keyH;
 
@@ -41,7 +41,7 @@ public class Player extends Entity {
         setItems();
     }
 
-    public void setDefaultValues() {
+    public void setDefaultValues() { // mengatur nilai-nilai default
         worldX = gp.tileSize * 23;
         worldY = gp.tileSize * 21;
         gp.currentMap = 0;
@@ -67,36 +67,37 @@ public class Player extends Entity {
         defense = getDefense();
     }
 
-    public void setDefaultPositions() {
+    public void setDefaultPositions() { // mengatur posisi default
+
         worldX = gp.tileSize * 23;
         worldY = gp.tileSize * 21;
         direction = "down";
     }
 
-    public void restoreLifeAndMana() {
+    public void restoreLifeAndMana() { // mengembalikan nilai kesehatan dan mana ke nilai maksimal
         life = maxMana;
         mana = maxMana;
         invincible = false;
     }
 
-    public void setItems() {
+    public void setItems() { // mengatur daftar item
         inventory.clear();
         inventory.add(currentWeapon);
         inventory.add(currentShield);
         inventory.add(new OBJ_Key(gp));
     }
 
-    public int getAttack() {
+    public int getAttack() { // mengembalikan nilai serangan 
         attackArea = currentWeapon.attackArea;
 
         return attack = strength * currentWeapon.attackValue;
     }
 
-    public int getDefense() {
+    public int getDefense() { // mengembalikan nilai pertahanan
         return defense = dexterity * currentShield.defenseValue;
     }
 
-    public void getPlayerImage() {
+    public void getPlayerImage() { // mengembalikan objek gambar pemain
         up1 = setup("../asset/player/boy_up_1", gp.tileSize, gp.tileSize);
         up2 = setup("../asset/player/boy_up_2", gp.tileSize, gp.tileSize);
         down1 = setup("../asset/player/boy_down_1", gp.tileSize, gp.tileSize);
@@ -108,7 +109,7 @@ public class Player extends Entity {
 
     }
 
-    public void getPlayerAttackImage() {
+    public void getPlayerAttackImage() { // mengembalikan objek gambar serangan pemain
         if (currentWeapon.type == type_sword) {
             attackUp1 = setup("../asset/player/boy_attack_up_1", gp.tileSize, gp.tileSize * 2);
             attackUp2 = setup("../asset/player/boy_attack_up_2", gp.tileSize, gp.tileSize * 2);
@@ -132,7 +133,7 @@ public class Player extends Entity {
         }
     }
 
-    public void update() {
+    public void update() { // memperbarui kondisi suatu objek
         if (attacking == true) {
             attacking();
         } else if (keyH.upPressed == true || keyH.downPressed == true || keyH.leftPressed == true ||
@@ -188,7 +189,7 @@ public class Player extends Entity {
                 }
             }
 
-            if (keyH.enterPressed == true && attackCanceled == false) {
+            if (keyH.enterPressed == true && attackCanceled == false) {  // blok kode yang akan dijalankan jika kondisi terpenuhi
                 gp.playSE(7);
                 attacking = true;
                 spriteCounter = 0;
@@ -256,7 +257,7 @@ public class Player extends Entity {
         }
     }
 
-    public void attacking() {
+    public void attacking() { // perintah untuk mengeksekusi serangan dari objek
         spriteCounter++;
 
         if (spriteCounter <= 5) {
@@ -314,7 +315,7 @@ public class Player extends Entity {
         }
     }
 
-    // public void pickUpObject(int i) {
+    // public void pickUpObject(int i) { // mendapatkan objek game dengan indeks i dari suatu tempat
     //     if (i != 999) {
 
     //         // PICKUP ONLY ITEMS
@@ -324,7 +325,7 @@ public class Player extends Entity {
     //         } else {
     //             // INVENTORY ITEMS
     //             String text;
-
+    //             // menambahkan game ke inventori pemain
     //             if (inventory.size() != maxInventorySize) {
     //                 inventory.add(gp.obj[gp.currentMap][i]);
     //                 gp.playSE(1);
@@ -338,7 +339,7 @@ public class Player extends Entity {
     //     }
     // }
 
-    public void pickUpObject(int i) {
+    public void pickUpObject(int i) { // mendapatkan objek game dengan indeks i dari suatu tempat
         if (i != 999) {
             if (gp.obj[gp.currentMap][i] != null) {
                 // PICKUP ONLY ITEMS
@@ -364,7 +365,7 @@ public class Player extends Entity {
         }
     }
 
-    public void interactNPC(int i) {
+    public void interactNPC(int i) { // mengambil NPC dengan indeks i dari daftar NPC yang berdekatan
         if (gp.keyH.enterPressed == true) {
             if (i != 999) {
                 attackCanceled = true;
@@ -374,7 +375,7 @@ public class Player extends Entity {
         }
     }
 
-    public void contactMonster(int i) {
+    public void contactMonster(int i) { // mengambil monster dengan indeks i 
         if (i != 999) {
             if (invincible == false && gp.monster[gp.currentMap][i].dying == false) {
                 gp.playSE(6);
@@ -420,13 +421,14 @@ public class Player extends Entity {
         }
     }
 
-    public void knockBack(Entity entity, int knockBackPower) {
+    public void knockBack(Entity entity, int knockBackPower) { // menggeser posisi entitas berdasarkan nilai knockBackPower
         entity.direction = direction;
         entity.speed += knockBackPower;
         entity.knockBack = true;
     }
 
-    public void damageInteractiveTile(int i) {
+    public void damageInteractiveTile(int i) { // mendapatkan tile interaktif dengan indeks i dari struktur data tiles
+
         if (i != 999 && gp.iTile[gp.currentMap][i].destructible == true
                 && gp.iTile[gp.currentMap][i].isCorrectItem(this) == true
                 && gp.iTile[gp.currentMap][i].invincible == false) {
@@ -442,7 +444,7 @@ public class Player extends Entity {
         }
     }
 
-    public void damageProjectile(int i) {
+    public void damageProjectile(int i) { // mendapatkan proyektil dengan indeks i
         if (i != 999) {
             Entity projectile = gp.projectile[gp.currentMap][i];
             projectile.alive = false;
@@ -450,7 +452,7 @@ public class Player extends Entity {
         }
     }
 
-    public void checkLevelUp() {
+    public void checkLevelUp() { // implementasi logika pengecekan level up
         if (exp >= nextLevelExp) {
             level++;
             nextLevelExp *= 2;
@@ -466,7 +468,7 @@ public class Player extends Entity {
         }
     }
 
-    public void selectItem() {
+    public void selectItem() {  // implementasi sederhana: Memilih item pertama dalam inventori sebagai item yang sedang dipilih
         int itemIndex = gp.ui.getItemIndexOnSlot(gp.ui.playerSlotCol, gp.ui.playerSlotRow);
 
         if (itemIndex < inventory.size()) {
@@ -490,13 +492,13 @@ public class Player extends Entity {
         }
     }
 
-    public void draw(Graphics2D g2) {
+    public void draw(Graphics2D g2) {  //implementasi gambar objek pada area yang diberikan
         BufferedImage image = null;
         int tempScreenX = screenX;
         int tempScreenY = screenY;
 
         switch (direction) {
-            case "up":
+            case "up": // blok kode yang dijalankan jika nilai arah atas
                 if (attacking == false) {
                     if (spriteNum == 1) {
                         image = up1;
@@ -517,7 +519,7 @@ public class Player extends Entity {
                     }
                 }
                 break;
-            case "down":
+            case "down": // blok kode yang dijalankan jika nilai arah bawah
                 if (attacking == false) {
                     if (spriteNum == 1) {
                         image = down1;
@@ -537,7 +539,7 @@ public class Player extends Entity {
                     }
                 }
                 break;
-            case "left":
+            case "left": // blok kode yang dijalankan jika nilai arah kiri
                 if (attacking == false) {
                     if (spriteNum == 1) {
                         image = left1;
@@ -558,7 +560,7 @@ public class Player extends Entity {
                     }
                 }
                 break;
-            case "right":
+            case "right": // blok kode yang dijalankan jika nilai arah kanan
                 if (attacking == false) {
                     if (spriteNum == 1) {
                         image = right1;

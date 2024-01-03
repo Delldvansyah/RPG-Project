@@ -2,14 +2,14 @@ package entity;
 
 import main.GamePanel;
 
-public class Projectile extends Entity {
+public class Projectile extends Entity { // kelas tambahan khusus untuk proyektil
     Entity user;
 
     public Projectile(GamePanel gp) {
         super(gp);
     }
 
-    public void set(int worldX, int worldY, String direction, boolean alive, Entity user) {
+    public void set(int worldX, int worldY, String direction, boolean alive, Entity user) { // inisialisasi
         this.worldX = worldX;
         this.worldY = worldY;
         this.direction = direction;
@@ -18,7 +18,7 @@ public class Projectile extends Entity {
         this.life = maxLife;
     }
 
-    public void update() {
+    public void update() { // memperbarui kondisi
         if (user == gp.player) {
             int monsterIndex = gp.cChecker.checkEntity(this, gp.monster);
 
@@ -70,12 +70,12 @@ public class Projectile extends Entity {
         }
     }
 
-    public boolean haveResource(Entity user) {
+    public boolean haveResource(Entity user) { // memeriksa apakah entitas memiliki sumber daya
         boolean haveResource = false;
 
         return haveResource;
     }
 
-    public void subtractResource(Entity user) {
+    public void subtractResource(Entity user) { // mengambil jumlah sumber daya dari pengguna
     }
 }

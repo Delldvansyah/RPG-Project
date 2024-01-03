@@ -2,14 +2,14 @@ package main;
 
 import entity.Entity;
 
-public class CollisionChecker {
+public class CollisionChecker { // memeriksa dan mengelola tabrakan (collision) antara objek-objek lain dalam suatu program atau permainan.
     GamePanel gp;
 
     public CollisionChecker(GamePanel gp) {
         this.gp = gp;
     }
 
-    public void checkTile(Entity entity) {
+    public void checkTile(Entity entity) { // memerikasa elemen area dlm game
         int entityLeftWorldX = entity.worldX + entity.solidArea.x;
         int entityRightWorldX = entity.worldX + entity.solidArea.x + entity.solidArea.width;
         int entityTopWorldY = entity.worldY + entity.solidArea.y;
@@ -21,7 +21,7 @@ public class CollisionChecker {
 
         int tileNum1, tileNum2;
 
-        switch (entity.direction) {
+        switch (entity.direction) { // pengalihan kondisi
             case "up":
                 entityTopRow = (entityTopWorldY - entity.speed) / gp.tileSize;
                 tileNum1 = gp.tileM.mapTileNum[gp.currentMap][entityLeftCol][entityTopRow];

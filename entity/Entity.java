@@ -16,38 +16,38 @@ import main.UtilityTool;
 public class Entity {
     GamePanel gp;
 
-    public BufferedImage up1, up2, down1, down2, left1, left2, right1, right2;
-    public BufferedImage attackUp1, attackUp2, attackDown1, attackDown2, attackLeft1, attackLeft2, attackRight1,
-            attackRight2;
-    public BufferedImage image, image2, image3;
+    public BufferedImage up1, up2, down1, down2, left1, left2, right1, right2; // inisialisasi gerakan karakter
+    public BufferedImage attackUp1, attackUp2, attackDown1, attackDown2, attackLeft1, attackLeft2, attackRight1, 
+            attackRight2; // inisialisasi pergerakan atau serangan karakter saat melakukan serangan ke arah tertentu
+    public BufferedImage image, image2, image3; // inisialisasi gambar
     public Rectangle solidArea = new Rectangle(0, 0, 48, 48);
     public Rectangle attackArea = new Rectangle(0, 0, 0, 0);
     public int solidAreaDefaultX, solidAreaDefaultY;
-    public boolean collision = false;
+    public boolean collision = false; // menyimpan informasi keberadaan suatu tabrakan
     String dialogues[] = new String[20];
 
     // STATE
-    public int worldX, worldY;
+    public int worldX, worldY; // menyimpan nilai koordinat suatu sistem koordinat2D
     public String direction = "down";
     public int spriteNum = 1;
     int dialogueIndex = 0;
-    public boolean collisionOn = false;
-    public boolean invincible = false;
-    public boolean attacking = false;
-    public boolean alive = true;
-    public boolean dying = false;
+    public boolean collisionOn = false; // inisialisasi kondisi tidak adanya tabrakan dlm permainan
+    public boolean invincible = false; // menyimpan kondisi kekebalan terhadap serangan 
+    public boolean attacking = false; // menyimpan kondisi terkait sedang melakukan serangan
+    public boolean alive = true; // kondisi terkait dengan kehidupan suatu karakter
+    public boolean dying = false; // kondisi tidak dalam proses mati
     boolean hpBarOn = false;
-    public boolean onPath = false;
-    public boolean knockBack = false;
+    public boolean onPath = false; // menandakan bahwa objek tidak berada di jalur 
+    public boolean knockBack = false; // menandakan suatu objek terdorong ke belakang ketika terkena serangan
 
     // COUNTER
-    public int spriteCounter = 0;
-    public int actionLockCounter = 0;
-    public int invincibleCounter = 0;
-    public int shotAvailableCounter = 0;
-    int dyingCounter = 0;
-    int hpBarCounter = 0;
-    int knockBackCounter = 0;
+    public int spriteCounter = 0; // menyimpan jumlah terkait elemen grafis dalam game
+    public int actionLockCounter = 0; // pembatasan suatu tindakan
+    public int invincibleCounter = 0; // ketahanan suatu objek karakter dalam permainan
+    public int shotAvailableCounter = 0; // menyimpan informasi ketersediaan tindakan dalam game
+    int dyingCounter = 0; // perhitungan kondisi karakter sedang "mati" dalat suatu permainan 
+    int hpBarCounter = 0; // perhittungan bar kesehatan dlm permainan
+    int knockBackCounter = 0; // menyimpan perhitungan knockback
 
     // CHARACTER ATTRIBUTES
     public String name;
@@ -71,13 +71,13 @@ public class Entity {
     public Projectile projectile;
 
     // ITEM ATTRIBUTES
-    public ArrayList<Entity> inventory = new ArrayList<>();
-    public final int maxInventorySize = 20;
-    public int value;
-    public int attackValue;
-    public int defenseValue;
-    public String description = "";
-    public int useCost;
+    public ArrayList<Entity> inventory = new ArrayList<>(); // mengimplementasi struktur data bentuk array
+    public final int maxInventorySize = 20; // membatasi ukuran maksimum inventaris dalam permainan
+    public int value; //
+    public int attackValue; // menyimpan infromasi kekuatan serangan dalam permainan
+    public int defenseValue; // menyimpan nilai dengan tingkat ketahanan suatu karakter
+    public String description = ""; // mendeskripsikan suatu karakter atau objek 
+    public int useCost; // penggunaan biaya suatu objek dalam game
     public int price;
     public int knockBackPower = 0;
 
@@ -96,10 +96,10 @@ public class Entity {
         this.gp = gp;
     }
 
-    public void setAction() {
+    public void setAction() { // mengatur tindakan dalam objek
     }
 
-    public void damageReaction() {
+    public void damageReaction() { // reaksi kerusakan dalam permainan
     }
 
     public void speak() {
@@ -129,10 +129,10 @@ public class Entity {
     public void use(Entity entity) {
     }
 
-    public void checkDrop() {
+    public void checkDrop() { // melakukan pemeriksaan status drop, misalnya, memeriksa apakah ada objek yang sedang jatuh.
     }
 
-    public void dropItem(Entity droppedItem) {
+    public void dropItem(Entity droppedItem) { // menambahkan item
         for (int i = 0; i < gp.obj[1].length; i++) {
             if (gp.obj[gp.currentMap][i] == null) {
                 gp.obj[gp.currentMap][i] = droppedItem;
@@ -143,31 +143,31 @@ public class Entity {
         }
     }
 
-    public Color getParticleColor() {
+    public Color getParticleColor() { // mengembalikan warna tetap untuk partikel.
         Color color = null;
 
         return color;
     }
 
-    public int getParticleSize() {
+    public int getParticleSize() { // mengembalikan warna berdasarkan logika atau kalkulasi tertentu.
         int size = 0;
 
         return size;
     }
 
-    public int getParticleSpeed() {
+    public int getParticleSpeed() { // mengembalikan ukuran tetap untuk partikel.
         int speed = 0;
 
         return speed;
     }
 
-    public int getParticleMaxLife() {
+    public int getParticleMaxLife() { // mengembalikan masa hidup maksimum tetap untuk partikel
         int maxLife = 0;
 
         return maxLife;
     }
 
-    public void generateParticle(Entity generator, Entity target) {
+    public void generateParticle(Entity generator, Entity target) { // membuat partikel baru dan menetapkan pada lokasi entitas target.
         Color color = generator.getParticleColor();
         int size = generator.getParticleSize();
         int speed = generator.getParticleSpeed();
@@ -183,7 +183,7 @@ public class Entity {
         gp.particleList.add(p4);
     }
 
-    public void checkCollision() {
+    public void checkCollision() { // pemeriksaan tabrakan antara objek-objek 
         collisionOn = false;
         gp.cChecker.checkTile(this);
         gp.cChecker.checkObject(this, false);
@@ -197,7 +197,7 @@ public class Entity {
         }
     }
 
-    public void update() {
+    public void update() { // memperbarui kondisi
 
         if (knockBack == true) {
             checkCollision();
@@ -275,11 +275,11 @@ public class Entity {
         }
     }
 
-    public void damagePlayer(int attack) {
+    public void damagePlayer(int attack) { // mengurangi poin kesehatan pemain 
         if (gp.player.invincible == false) {
             // ADD DAMAGE
             gp.playSE(6);
-
+            // Mengecek apakah pemain mati atau masih hidup
             int damage = attack - gp.player.defense;
             if (damage < 0) {
                 damage = 0;
@@ -374,7 +374,7 @@ public class Entity {
         }
     }
 
-    public void dyingAnimation(Graphics2D g2) {
+    public void dyingAnimation(Graphics2D g2) { // mengimplementasikan objek dalam keadaan kehancuran
         dyingCounter++;
 
         int i = 5;
@@ -411,7 +411,7 @@ public class Entity {
 
     public void changeAlpha(Graphics2D g2, float alphaValue) {
         g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alphaValue));
-    }
+    } // Kode untuk menggambar atau merender objek dengan tingkat transparansi yang diatur
 
     public BufferedImage setup(String imagePath, int width, int height) {
 
@@ -429,7 +429,7 @@ public class Entity {
         return image;
     }
 
-    public void searchPath(int goalCol, int goalRow) {
+    public void searchPath(int goalCol, int goalRow) { // implementasi pencarian jalur
         int startCol = (worldX + solidArea.x) / gp.tileSize;
         int startRow = (worldY + solidArea.y) / gp.tileSize;
 

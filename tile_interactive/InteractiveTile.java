@@ -14,9 +14,9 @@ public class InteractiveTile extends Entity {
         this.gp = gp;
     }
 
-    public boolean isCorrectItem(Entity entity) {
+    public boolean isCorrectItem(Entity entity) { // implementasi logika untuk memeriksa apakah entity adalah item yang benar
         boolean isCorrectItem = false;
-
+        // return nilai boolean berdasarkan hasil pemeriksaan
         return isCorrectItem;
     }
 
@@ -39,7 +39,7 @@ public class InteractiveTile extends Entity {
         }
     }
 
-    public void draw(Graphics2D g2) {
+    public void draw(Graphics2D g2) { // menggambar objek pada suatu konteks grafis dalam permainan
         int screenX = worldX - gp.player.worldX + gp.player.screenX;
         int screenY = worldY - gp.player.worldY + gp.player.screenY;
 

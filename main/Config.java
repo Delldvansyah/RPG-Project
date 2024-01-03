@@ -7,14 +7,14 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class Config {
+public class Config { // kelas untuk menyimpan konfigurasi
     GamePanel gp;
 
     public Config(GamePanel gp) {
         this.gp = gp;
     }
 
-    public void saveConfig() {
+    public void saveConfig() { // menyimpan konfigurasi
         try {
             BufferedWriter bw = new BufferedWriter(new FileWriter("config.txt"));
 
@@ -42,7 +42,7 @@ public class Config {
         }
     }
 
-    public void loadConfig() {
+    public void loadConfig() { // implementasi untuk memuat konfigurasi dari file
         try {
             BufferedReader br = new BufferedReader(new FileReader("config.txt"));
 
@@ -66,7 +66,7 @@ public class Config {
             gp.se.volumeScale = Integer.parseInt(s);
 
             br.close();
-        } catch (Exception e) {
+        } catch (Exception e) { // variabel 'e' berisi objek pengecualian yang terjadi
             e.printStackTrace();
         }
     }

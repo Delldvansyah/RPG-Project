@@ -6,26 +6,26 @@ import main.GamePanel;
 
 public class PathFinder {
 
-    GamePanel gp;
+    GamePanel gp; // inisialisasi gp
     Node[][] node;
     ArrayList<Node> openList = new ArrayList<>();
-    public ArrayList<Node> pathList = new ArrayList<>();
+    public ArrayList<Node> pathList = new ArrayList<>(); // inisialiasai pathlist
     Node startNode, goalNode, currentNode;
     boolean goalReached = false;
-    int step = 0;
+    int step = 0; // untuk mengecek langkah, nilai awal diatur 0 
 
     public PathFinder(GamePanel gp) {
         this.gp = gp;
         instantiateNodes();
     }
 
-    public void instantiateNodes() {
-        node = new Node[gp.maxWorldCol][gp.maxWorldRow];
+    public void instantiateNodes() {  //  menginisialisasi objek
+        node = new Node[gp.maxWorldCol][gp.maxWorldRow]; // membuat suatu array dua dimensi dari objek Node
 
         int col = 0;
         int row = 0;
 
-        while (col < gp.maxWorldCol && row < gp.maxWorldRow) {
+        while (col < gp.maxWorldCol && row < gp.maxWorldRow) { // mengontrupsi loop while
             node[col][row] = new Node(col, row);
 
             col++;
@@ -36,7 +36,7 @@ public class PathFinder {
         }
     }
 
-    public void resetNodes() {
+    public void resetNodes() { // mengembalikan nilai dari objek yang disebut "nodes" ke dalam nilai awal
         int col = 0;
         int row = 0;
 
@@ -54,13 +54,13 @@ public class PathFinder {
         }
 
         // RESET OTHER SETTINGS
-        openList.clear();
-        pathList.clear();
-        goalReached = false;
+        openList.clear(); // perintah menghapus elemen 
+        pathList.clear(); // perintah untuk menghapus leemen yang ada di pathlist
+        goalReached = false; // tujuan tidak tercapai
         step = 0;
     }
 
-    public void setNodes(int startCol, int startRow, int goalCol, int goalRow) {
+    public void setNodes(int startCol, int startRow, int goalCol, int goalRow) { // implementasi untuk mengatur atau menginisialisasi nodes
         resetNodes();
 
         // SET START AND GOAL NODE
@@ -119,14 +119,15 @@ public class PathFinder {
         node.fCost = node.gCost + node.hCost;
     }
 
-    public boolean search() {
+    public boolean search() {   // implementasi pencarian elemen dalam array.
         while (goalReached == false && step < 500) {
             int col = currentNode.col;
             int row = currentNode.row;
 
             // CHECK THE CURRENT NODE
             currentNode.checked = true;
-            openList.remove(currentNode);
+            openList.remove(currentNode); // menghapus currentNode dari openList
+            
 
             // OPEN THE UP NODE
             if (row - 1 >= 0) {
@@ -136,7 +137,7 @@ public class PathFinder {
             // OPEN THE LEFT NODE
             if (col - 1 >= 0) {
                 openNode(node[col - 1][row]);
-            }
+            } 
 
             // OPEN THE DOWN NODE
             if (row + 1 < gp.maxWorldRow) {
@@ -154,7 +155,7 @@ public class PathFinder {
 
             for (int i = 0; i < openList.size(); i++) {
                 // CHECK IF THIS NODE'S F COST IS BETTER
-                if (openList.get(i).fCost < bestNodefCost) {
+                if (openList.get(i).fCost < bestNodefCost) { // memperbarui nilai bestNodefCost
                     bestNodeIndex = i;
                     bestNodefCost = openList.get(i).fCost;
                 }
@@ -193,8 +194,8 @@ public class PathFinder {
         }
     }
 
-    public void trackThePath() {
-        Node current = goalNode;
+    public void trackThePath() { // implementasi untuk melacak jalur
+        Node current = goalNode; 
 
         while (current != startNode) {
             pathList.add(0, current);

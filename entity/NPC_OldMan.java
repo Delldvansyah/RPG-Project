@@ -5,11 +5,11 @@ import java.util.Random;
 
 import main.GamePanel;
 
-public class NPC_OldMan extends Entity {
+public class NPC_OldMan extends Entity { // menambahkan properti tambahan yang spesifik untuk karakter NPC_OldMan
 
     public NPC_OldMan(GamePanel gp) {
         super(gp);
-
+        // inisialisasi objek NPC_OldMan dengan informasi dari GamePanel
         direction = "down";
         speed = 1;
 
@@ -36,14 +36,14 @@ public class NPC_OldMan extends Entity {
         right2 = setup("../asset/npc/oldman_right_2", gp.tileSize, gp.tileSize);
     }
 
-    public void setDialogue() {
+    public void setDialogue() { // mengatur percakapan
         dialogues[0] = "Hello, lad.";
         dialogues[1] = "So, you've come to this island to find \nthe treasure?";
         dialogues[2] = "I used to be a great wizard but now... \nI'm a bit too old for taking an adventure.";
         dialogues[3] = "Well, good luck on you!";
     }
 
-    public void setAction() {
+    public void setAction() { // mengatur tindakan
 
         if (onPath == true) {
             // int goalCol = 12;
